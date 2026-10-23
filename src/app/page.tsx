@@ -1,69 +1,89 @@
 import Image from "next/image";
 
+import { Header } from "@/components/Header";
+import { FileCard } from "@/components/FileCard";
+import { Footer } from "@/components/Footer";
+
+const files = [
+  {
+    number: "001",
+    name: "Quests",
+    href: "/quests",
+    image: "/assets/cat.svg",
+  },
+  {
+    number: "002",
+    name: "Trials",
+    href: "/trials",
+    image: "/assets/ghostface.svg",
+  },
+  {
+    number: "003",
+    name: "Memories",
+    href: "/memories",
+    image: "/assets/photo_cards.svg",
+  },
+  {
+    number: "004",
+    name: "Museum",
+    href: "/museum",
+    image: "/assets/charm.svg",
+  },
+  {
+    number: "005",
+    name: "Letter",
+    href: "/letter",
+    image: "/assets/letter.svg",
+  },
+];
+
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+    <main className="min-h-screen bg-[#dceef8] text-black">
+      <div className="mx-auto flex min-h-screen max-w-[1200px] flex-col px-5 py-3">
+        <Header />
+
+        {/* Hero */}
+        <section className="mx-auto mt-12 grid w-full max-w-[850px] grid-cols-[150px_1fr_180px] items-center gap-6">
+          {/* Cake */}
+          <button className="group relative">
             <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
+              src="/assets/cake.png"
+              alt="Birthday cake"
+              width={130}
+              height={130}
+              className="transition-transform group-hover:scale-105"
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+
+            <span className="absolute right-[-15px] top-8 rounded-md bg-white px-2 py-1 text-[10px] shadow">
+              Click to open
+              <br />
+              photobooth
+            </span>
+          </button>
+
+          {/* Text */}
+          <div>
+            <h1 className="text-4xl font-bold">Happy Birthday &lt;/3</h1>
+
+            <p className="mt-1 text-lg">A special celebration for an amazing person!</p>
+
+            <p className="text-lg italic">Happy birthday! A new trial has begun.</p>
+          </div>
+
+          {/* Crew */}
+          <Image src="/assets/crew.png" alt="Birthday crew" width={180} height={150} className="object-contain" />
+        </section>
+
+        {/* Files */}
+        <section className="mx-auto mt-7 flex max-w-[430px] flex-wrap justify-center gap-4">
+          {files.map((file) => (
+            <FileCard key={file.number} {...file} />
+          ))}
+        </section>
+
+        <Footer />
+      </div>
+    </main>
   );
 }
