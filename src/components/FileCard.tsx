@@ -16,51 +16,75 @@ export function FileCard({ number, name, href, image }: FileCardProps) {
         group
         relative
         flex
-        h-[125px]
-        w-[105px]
+        w-45
+        aspect-180/220
+        shrink-0
         items-center
         justify-center
         overflow-hidden
-        rounded-md
+        rounded-[10px]
         border-2
         border-[#91b5ca]
         bg-white
         transition-all
         duration-200
+        ease-out
         hover:-translate-y-1
         hover:shadow-lg
       "
     >
-      {/* Floral/cloud background */}
-      <Image src="/assets/card_background.svg" alt="" fill className="object-cover" />
+      {/* Card background */}
+      <Image
+        src="/assets/home/card_background.svg"
+        alt=""
+        fill
+        priority
+        className="
+          object-cover
+          transition-transform
+          duration-300
+          group-hover:scale-105
+        "
+      />
 
-      {/* Main icon */}
+      {/* Main card asset */}
       <Image
         src={image}
         alt={`${name} icon`}
-        width={68}
-        height={68}
+        width={125}
+        height={125}
         className="
           relative
           z-10
+          h-31.25
+          w-31.25
           object-contain
           transition-transform
           duration-200
+          ease-out
           group-hover:scale-110
         "
       />
 
-      {/* File label */}
+      {/* File name */}
       <span
         className="
           absolute
-          bottom-1
+          bottom-1.75
+          left-1/2
           z-20
+          -translate-x-1/2
           whitespace-nowrap
-          text-[9px]
-          text-[#654b8a]
-          underline
+          text-center
+          text-[18px]
+          font-normal
+          leading-none
+          text-[#533D81]
         "
+        style={{
+          WebkitTextStroke: "1.5px #C6A9FE",
+          paintOrder: "stroke fill",
+        }}
       >
         File {number}: {name}
       </span>

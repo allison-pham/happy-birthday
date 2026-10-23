@@ -1,66 +1,102 @@
 import Image from "next/image";
-
-import { Header } from "@/components/Header";
+import Link from "next/link";
 import { FileCard } from "@/components/FileCard";
-import { Footer } from "@/components/Footer";
+import { FlippableFileCard } from "@/components/FlippableCard";
 
-const files = [
+type FileItem =
+  | {
+      number: string;
+      name: string;
+      image: string;
+      flippable: true;
+      backTitle: string;
+      backDescription: string;
+      href?: string;
+    }
+  | {
+      number: string;
+      name: string;
+      image: string;
+      flippable: false;
+      href: string;
+      backTitle?: never;
+      backDescription?: never;
+    };
+
+const files: FileItem[] = [
   {
     number: "001",
     name: "Quests",
-    href: "/quests",
-    image: "/assets/cat.svg",
+    image: "/assets/home/cat.svg",
+    flippable: true,
+    backTitle: "Quests",
+    backDescription: "Currently in development!",
   },
   {
     number: "002",
     name: "Trials",
-    href: "/trials",
-    image: "/assets/ghostface.svg",
+    image: "/assets/home/ghostface.svg",
+    flippable: true,
+    backTitle: "Trials",
+    backDescription: "Currently in development!",
   },
   {
     number: "003",
     name: "Memories",
     href: "/memories",
-    image: "/assets/photo_cards.svg",
+    image: "/assets/home/photo_cards.svg",
+    flippable: false,
   },
   {
     number: "004",
     name: "Museum",
-    href: "/museum",
-    image: "/assets/charm.svg",
+    image: "/assets/home/charm.svg",
+    flippable: true,
+    backTitle: "Museum",
+    backDescription: "Currently in development!",
   },
   {
     number: "005",
     name: "Letter",
     href: "/letter",
-    image: "/assets/letter.svg",
+    image: "/assets/home/letter.svg",
+    flippable: false,
   },
 ];
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[#dceef8] text-black">
-      <div className="mx-auto flex min-h-screen max-w-[1200px] flex-col px-5 py-3">
-        <Header />
-
+    <main className="bg-[#dceef8] text-black">
+      <div className="mx-auto flex max-w-300 flex-col px-5 py-3">
         {/* Hero */}
-        <section className="mx-auto mt-12 grid w-full max-w-[850px] grid-cols-[150px_1fr_180px] items-center gap-6">
+        <section className="mx-auto mt-12 grid w-full max-w-212.5 grid-cols-[150px_1fr_180px] items-center gap-6">
           {/* Cake */}
-          <button className="group relative">
+          <Link
+            href="https://bdaycake.com/happy-birthday-2026"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group relative block cursor-pointer"
+          >
+            {/* Cake image */}
             <Image
-              src="/assets/cake.png"
+              src="/assets/home/birthday_cake.svg"
               alt="Birthday cake"
               width={130}
               height={130}
-              className="transition-transform group-hover:scale-105"
+              className="transition-transform duration-200 group-hover:scale-105"
             />
 
-            <span className="absolute right-[-15px] top-8 rounded-md bg-white px-2 py-1 text-[10px] shadow">
-              Click to open
-              <br />
-              photobooth
-            </span>
-          </button>
+            {/* Bubble */}
+            <div className="absolute -right-8.75 top-6.25 h-18.75 w-22.5 transition-transform duration-200 group-hover:scale-105">
+              <Image src="/assets/home/bubble_comic.svg" alt="" fill className="object-contain" />
+
+              <span className="absolute inset-0 z-10 flex items-center justify-center text-center text-[10px] leading-tight">
+                Click to open
+                <br />
+                full view.
+              </span>
+            </div>
+          </Link>
 
           {/* Text */}
           <div>
@@ -72,17 +108,33 @@ export default function Home() {
           </div>
 
           {/* Crew */}
-          <Image src="/assets/crew.png" alt="Birthday crew" width={180} height={150} className="object-contain" />
+          <Image
+            src="/assets/home/among_us.svg"
+            alt="Birthday crew"
+            width={180}
+            height={150}
+            className="object-contain"
+          />
         </section>
 
         {/* Files */}
-        <section className="mx-auto mt-7 flex max-w-[430px] flex-wrap justify-center gap-4">
-          {files.map((file) => (
-            <FileCard key={file.number} {...file} />
-          ))}
+        <section className="mx-auto mt-7 flex w-full max-w-155 flex-wrap justify-center gap-4">
+          {files.map((file) =>
+            file.flippable ? (
+              <FlippableFileCard
+                key={file.number}
+                number={file.number}
+                name={file.name}
+                href={file.href}
+                image={file.image}
+                backTitle={file.backTitle}
+                backDescription={file.backDescription}
+              />
+            ) : (
+              <FileCard key={file.number} number={file.number} name={file.name} href={file.href} image={file.image} />
+            ),
+          )}
         </section>
-
-        <Footer />
       </div>
     </main>
   );
