@@ -13,7 +13,7 @@ const memories = [
 
 export default function Memories() {
   return (
-    <main className="min-h-screen bg-[#e1f2fc]">
+    <main className="bg-[#e1f2fc]">
       <h1 className="pt-12 text-center text-4xl font-bold">Memories</h1>
 
       {/* Chalkboard */}
